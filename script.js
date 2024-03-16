@@ -19,12 +19,18 @@ let bookDeleteButton;
 
 
 function promptUser() {
-    let title = prompt('title');
-    let author = prompt('author');
-    let pages = parseInt(prompt('pages'));
-    let read = prompt('read');
-    const newBook = new Book(title, author, pages, read);
-    addBookToLibrary(newBook);
+    //OLD LOGIC USING MODALS:
+        // let title = prompt('title');
+        // let author = prompt('author');
+        // let pages = parseInt(prompt('pages'));
+        // let read = prompt('read');
+        // const newBook = new Book(title, author, pages, read);
+        // addBookToLibrary(newBook);
+
+    //NEW LOGIC:
+    
+
+
 }
 
 function addBookToLibrary(book) {
