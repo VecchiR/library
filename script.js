@@ -19,7 +19,7 @@ let bookDeleteButton;
 
 
 function promptUser() {
-    //OLD LOGIC USING MODALS:
+    //OLD LOGIC USING PROMPTS:
         // let title = prompt('title');
         // let author = prompt('author');
         // let pages = parseInt(prompt('pages'));
