@@ -15,21 +15,27 @@ addBookButton.addEventListener('click', promptUser);
 
 const booksTable = document.querySelector('.books-table');
 
+const dialog = document.querySelector(".dialog-addbook");
+
+const closeDialogButton = document.querySelector(".dialog-close");
+closeDialogButton.addEventListener("click", () => {
+    dialog.close();
+});
+
 let bookDeleteButton;
 
 
 function promptUser() {
     //OLD LOGIC USING PROMPTS:
-        // let title = prompt('title');
-        // let author = prompt('author');
-        // let pages = parseInt(prompt('pages'));
-        // let read = prompt('read');
-        // const newBook = new Book(title, author, pages, read);
-        // addBookToLibrary(newBook);
+    //// let title = prompt('title');
+    //// let author = prompt('author');
+    //// let pages = parseInt(prompt('pages'));
+    //// let read = prompt('read');
+    //// const newBook = new Book(title, author, pages, read);
+    //// addBookToLibrary(newBook);
 
     //NEW LOGIC:
-    
-
+    dialog.showModal();
 
 }
 
@@ -54,7 +60,7 @@ function addBookToLibrary(book) {
 function examplesOnLoad() {
     const meditations = new Book('Meditations', 'Marcus Aurelius', 208, 'no');
     addBookToLibrary(meditations);
-    const fahrenheit = new Book ('Fahrenheit 451', 'Ray Bradbury', 159, 'yes');
+    const fahrenheit = new Book('Fahrenheit 451', 'Ray Bradbury', 159, 'yes');
     addBookToLibrary(fahrenheit);
 }
 
