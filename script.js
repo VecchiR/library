@@ -10,32 +10,39 @@ function Book(title, author, pages, read) {
     };
 }
 
+const addBookForm = document.querySelector (".dialog-form");
+const dialog = document.querySelector(".dialog-addbook");
 const addBookButton = document.querySelector('.add-book');
-addBookButton.addEventListener('click', promptUser);
+addBookButton.addEventListener('click', () => {
+    addBookForm.reset();
+    dialog.showModal();
+});
 
 const booksTable = document.querySelector('.books-table');
 
-const dialog = document.querySelector(".dialog-addbook");
 
 const closeDialogButton = document.querySelector(".dialog-close");
 closeDialogButton.addEventListener("click", () => {
     dialog.close();
 });
 
+const submitButton = document.querySelector(".book-submit");
+submitButton.addEventListener('click', (event) => {
+    submitBook(event);
+    addBookForm.reset();
+});
+
 let bookDeleteButton;
 
 
-function promptUser() {
-    //OLD LOGIC USING PROMPTS:
-    //// let title = prompt('title');
-    //// let author = prompt('author');
-    //// let pages = parseInt(prompt('pages'));
-    //// let read = prompt('read');
-    //// const newBook = new Book(title, author, pages, read);
-    //// addBookToLibrary(newBook);
-
-    //NEW LOGIC:
-    dialog.showModal();
+function submitBook(event) {
+    event.preventDefault();
+    let title = document.querySelector("#book-title").value;
+    let author = document.querySelector("#book-author").value;
+let pages = document.querySelector("#book-pages").value;
+    let read = document.querySelector("#book-finished").value;
+    let newBook = new Book(title, author, pages, read);
+    addBookToLibrary(newBook);
 
 }
 
@@ -63,7 +70,6 @@ function examplesOnLoad() {
     const fahrenheit = new Book('Fahrenheit 451', 'Ray Bradbury', 159, 'yes');
     addBookToLibrary(fahrenheit);
 }
-
 
 
 examplesOnLoad();
