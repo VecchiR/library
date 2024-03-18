@@ -9,7 +9,7 @@ function Book(title, author, pages, read, id) {
         return (`${title} by ${author}, ${pages} pages, ${read}`)
     };
     this.toggleRead = function () {
-        read = !read;
+        this.read = !this.read;
     }
     this.id = id;
 }
@@ -29,27 +29,12 @@ booksTable.addEventListener("click", (e) => {
     }
 
     if (e.target.classList.contains("readCheck")) {
-        console("readcheck");
+        changeReadStatus(e.target.parentNode);
     }
 
     else {
         return;
     }
-    // if(e.target.innerHTML === "Delete") {
-    //     alert ("Deletioooon");
-    // }
-    // if(e.target)
-    // else {
-    //     return;
-    // }
-    // const currentTarget = e.target.parentNode.parentNode.childNodes[1];
-    // if (e.target.innerHTML == "delete") {
-    //   if (confirm(`are you sure you want to delete ${currentTarget.innerText}`))
-    //     deleteBook(findBook(library, currentTarget.innerText));
-    // }
-    // if (e.target.classList.contains("status-button")) {
-    //   changeStatus(findBook(library, currentTarget.innerText));
-    // }
 });
 
 
@@ -101,13 +86,6 @@ function addBookToLibrary(book) {
     newCheckbox.setAttribute("type", "checkbox");
     newCheckbox.setAttribute("class", "readCheck");
 
-
-    // newCheckbox.addEventListener('click' , () => {
-    //     updateReadStatus(this); 
-    //  } );
-
-
-
     if (Object.values(book)[3] === true) {
         newCheckbox.checked = true;
     }
@@ -116,14 +94,6 @@ function addBookToLibrary(book) {
 
     let newDeleteBtn = document.createElement("button");
     newDeleteBtn.setAttribute("class", "delete-button");
-
-
-
-    // newDeleteBtn.addEventListener('click', test);
-
-
-
-
     let deleteBtnText = document.createTextNode("Delete");
     newDeleteBtn.appendChild(deleteBtnText);
     newRow.appendChild(newDeleteBtn);
@@ -138,7 +108,7 @@ function examplesOnLoad() {
 }
 
 
-examplesOnLoad();
+
 
 
 
@@ -166,7 +136,7 @@ function generateId() {
 }
 
 
-function deleteBookFromLibrary(row) { //from "e.target.parentNode"
+function deleteBookFromLibrary(row) {
     let bookId = row.querySelector('input').value;
     let bookIndex = myLibrary.findIndex(book => {
         return book.id === bookId;
@@ -174,5 +144,16 @@ function deleteBookFromLibrary(row) { //from "e.target.parentNode"
 
     myLibrary.splice(bookIndex, 1);
     booksTable.deleteRow(row.rowIndex);
-
 }
+
+function changeReadStatus(row) {
+    let bookId = row.querySelector('input').value;
+    let bookIndex = myLibrary.findIndex(book => {
+        return book.id === bookId;
+    });
+    myLibrary[bookIndex].toggleRead();
+}
+
+
+
+examplesOnLoad();
