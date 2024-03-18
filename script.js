@@ -1,6 +1,6 @@
 const myLibrary = [];
 
-function Book(title, author, pages, read) {
+function Book(title, author, pages, read, id) {
     this.title = title;
     this.author = author;
     this.pages = pages;
@@ -8,9 +8,13 @@ function Book(title, author, pages, read) {
     this.info = function () {
         return (`${title} by ${author}, ${pages} pages, ${read}`)
     };
+    this.toggleRead = function () {
+        read = !read;
+    }
+    this.id = id;
 }
 
-const addBookForm = document.querySelector (".dialog-form");
+const addBookForm = document.querySelector(".dialog-form");
 const dialog = document.querySelector(".dialog-addbook");
 const addBookButton = document.querySelector('.add-book');
 addBookButton.addEventListener('click', () => {
@@ -19,6 +23,34 @@ addBookButton.addEventListener('click', () => {
 });
 
 const booksTable = document.querySelector('.books-table');
+booksTable.addEventListener("click", (e) => {
+    if (e.target.classList.contains("delete-button")) {
+        deleteBookFromLibrary(e.target.parentNode);
+    }
+
+    if (e.target.classList.contains("readCheck")) {
+        console("readcheck");
+    }
+
+    else {
+        return;
+    }
+    // if(e.target.innerHTML === "Delete") {
+    //     alert ("Deletioooon");
+    // }
+    // if(e.target)
+    // else {
+    //     return;
+    // }
+    // const currentTarget = e.target.parentNode.parentNode.childNodes[1];
+    // if (e.target.innerHTML == "delete") {
+    //   if (confirm(`are you sure you want to delete ${currentTarget.innerText}`))
+    //     deleteBook(findBook(library, currentTarget.innerText));
+    // }
+    // if (e.target.classList.contains("status-button")) {
+    //   changeStatus(findBook(library, currentTarget.innerText));
+    // }
+});
 
 
 const closeDialogButton = document.querySelector(".dialog-close");
@@ -33,15 +65,17 @@ submitButton.addEventListener('click', (event) => {
 });
 
 let bookDeleteButton;
+let readCheckbox;
 
 
 function submitBook(event) {
     event.preventDefault();
     let title = document.querySelector("#book-title").value;
     let author = document.querySelector("#book-author").value;
-let pages = document.querySelector("#book-pages").value;
-    let read = document.querySelector("#book-finished").value;
-    let newBook = new Book(title, author, pages, read);
+    let pages = document.querySelector("#book-pages").value;
+    let read = document.querySelector("#book-finished").checked;
+    let id = generateId();
+    let newBook = new Book(title, author, pages, read, id);
     addBookToLibrary(newBook);
 
 }
@@ -50,14 +84,46 @@ function addBookToLibrary(book) {
     console.log(book);
     myLibrary.push(book);
     let newRow = document.createElement("tr");
-    for (let x = 0; x < 4; x++) {
+    for (let x = 0; x < 3; x++) {
+        if (x === 0) {
+            let hiddenTag = document.createElement("input");
+            hiddenTag.setAttribute('type', 'hidden');
+            hiddenTag.setAttribute('value', book.id);
+            newRow.appendChild(hiddenTag);
+        }
         let newData = document.createElement("td");
         let newText = document.createTextNode(Object.values(book)[x]);
         newData.appendChild(newText);
         newRow.appendChild(newData);
     }
+
+    let newCheckbox = document.createElement("input");
+    newCheckbox.setAttribute("type", "checkbox");
+    newCheckbox.setAttribute("class", "readCheck");
+
+
+    // newCheckbox.addEventListener('click' , () => {
+    //     updateReadStatus(this); 
+    //  } );
+
+
+
+    if (Object.values(book)[3] === true) {
+        newCheckbox.checked = true;
+    }
+    newRow.appendChild(newCheckbox);
+
+
     let newDeleteBtn = document.createElement("button");
-    newDeleteBtn.addEventListener('click', test);
+    newDeleteBtn.setAttribute("class", "delete-button");
+
+
+
+    // newDeleteBtn.addEventListener('click', test);
+
+
+
+
     let deleteBtnText = document.createTextNode("Delete");
     newDeleteBtn.appendChild(deleteBtnText);
     newRow.appendChild(newDeleteBtn);
@@ -65,9 +131,9 @@ function addBookToLibrary(book) {
 }
 
 function examplesOnLoad() {
-    const meditations = new Book('Meditations', 'Marcus Aurelius', 208, 'no');
+    const meditations = new Book('Meditations', 'Marcus Aurelius', 208, true, generateId());
     addBookToLibrary(meditations);
-    const fahrenheit = new Book('Fahrenheit 451', 'Ray Bradbury', 159, 'yes');
+    const fahrenheit = new Book('Fahrenheit 451', 'Ray Bradbury', 159, false, generateId());
     addBookToLibrary(fahrenheit);
 }
 
@@ -79,4 +145,34 @@ examplesOnLoad();
 
 function test() {
     alert('DELETED');
+}
+
+function updateReadStatus(x) {
+    alert(this);
+    alert(x);
+    let rowIndex = x.rowIndex;
+    alert(rowIndex);
+}
+
+function getBookIndex(title) {
+
+}
+
+
+function generateId() {
+
+    return Math.random().toString(36).substring(2) +
+        (new Date()).getTime().toString(36);
+}
+
+
+function deleteBookFromLibrary(row) { //from "e.target.parentNode"
+    let bookId = row.querySelector('input').value;
+    let bookIndex = myLibrary.findIndex(book => {
+        return book.id === bookId;
+    });
+
+    myLibrary.splice(bookIndex, 1);
+    booksTable.deleteRow(row.rowIndex);
+
 }
