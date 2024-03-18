@@ -14,6 +14,8 @@ function Book(title, author, pages, read, id) {
     this.id = id;
 }
 
+const bookTitleForm = document.querySelector('#book-title');
+
 const addBookForm = document.querySelector(".dialog-form");
 const dialog = document.querySelector(".dialog-addbook");
 const addBookButton = document.querySelector('.add-book');
@@ -46,7 +48,6 @@ closeDialogButton.addEventListener("click", () => {
 const submitButton = document.querySelector(".book-submit");
 submitButton.addEventListener('click', (event) => {
     submitBook(event);
-    addBookForm.reset();
 });
 
 let bookDeleteButton;
@@ -55,27 +56,34 @@ let readCheckbox;
 
 function submitBook(event) {
     event.preventDefault();
-    let title = document.querySelector("#book-title").value;
+    let title = bookTitleForm.value;
+
+    if(bookTitleForm.validity.valueMissing){
+        bookTitleForm.setCustomValidity("I am expecting an email address!");
+        return;
+    }
+    else {
+        bookTitleForm.setCustomValidity("");
+      }
+    
     let author = document.querySelector("#book-author").value;
     let pages = document.querySelector("#book-pages").value;
     let read = document.querySelector("#book-finished").checked;
     let id = generateId();
     let newBook = new Book(title, author, pages, read, id);
     addBookToLibrary(newBook);
-
+    addBookForm.reset();
 }
 
 function addBookToLibrary(book) {
     console.log(book);
     myLibrary.push(book);
     let newRow = document.createElement("tr");
+    let hiddenTag = document.createElement("input");
+    hiddenTag.setAttribute('type', 'hidden');
+    hiddenTag.setAttribute('value', book.id);
+    newRow.appendChild(hiddenTag);
     for (let x = 0; x < 3; x++) {
-        if (x === 0) {
-            let hiddenTag = document.createElement("input");
-            hiddenTag.setAttribute('type', 'hidden');
-            hiddenTag.setAttribute('value', book.id);
-            newRow.appendChild(hiddenTag);
-        }
         let newData = document.createElement("td");
         let newText = document.createTextNode(Object.values(book)[x]);
         newData.appendChild(newText);

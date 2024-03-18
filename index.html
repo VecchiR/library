@@ -16,11 +16,11 @@
     <form class="dialog-form" method="dialog">
       <p class="dialog-title">Add book to library:</p>
       <label for="book-title">Title:</label><br>
-      <input type="text" id="book-title" name="book-title"><br>
+      <input type="text" id="book-title" name="book-title" required><br>
       <label for="book-author">Author:</label><br>
       <input type="text" id="book-author" name="book-author"><br>
       <label for="book-pages">Number of pages:</label><br>
-      <input type="text" id="book-pages" name="book-pages"><br>
+      <input type="number" id="book-pages" name="book-pages"><br>
       <input type="checkbox" id="book-finished" name="book-finished" value="book-finished">
       <label for="book-finished">Finished reading</label><br>
       <button class="book-submit" type="submit">Submit</button>
