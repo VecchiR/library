@@ -1,0 +1,31 @@
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.books-table {
+        border-spacing: 30px;
+      
+}
+
+th {
+    text-align: left;
+}
+
+.dialog-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.dialog-close {
+    position: absolute;
+    top: 10px;
+  right: 10px;
+}
+
+
+* {
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
