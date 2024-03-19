@@ -30,7 +30,7 @@
 
       <label for="book-pages">
         <span class="form-field-span">Number of pages:</span>
-        <input type="number" id="book-pages" name="book-pages">
+        <input type="number" id="book-pages" name="book-pages" inputmode="numeric" oninput="this.value = this.value.replace(/\D+/g, '')">
       </label>
 
       <label for="book-finished">
