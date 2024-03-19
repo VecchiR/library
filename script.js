@@ -53,18 +53,21 @@ submitButton.addEventListener('click', (event) => {
 let bookDeleteButton;
 let readCheckbox;
 
+const bookTitleError = document.querySelector('span.error');
 
 function submitBook(event) {
     event.preventDefault();
     let title = bookTitleForm.value;
 
     if(bookTitleForm.validity.valueMissing){
-        bookTitleForm.setCustomValidity("I am expecting an email address!");
+        bookTitleError.className = 'error active';
+        bookTitleError.textContent = "Please enter the book's title!";
         return;
     }
     else {
-        bookTitleForm.setCustomValidity("");
-      }
+        bookTitleError.className = 'error';
+        bookTitleError.innerHTML = '';
+    }
     
     let author = document.querySelector("#book-author").value;
     let pages = document.querySelector("#book-pages").value;
@@ -161,7 +164,6 @@ function changeReadStatus(row) {
     });
     myLibrary[bookIndex].toggleRead();
 }
-
 
 
 examplesOnLoad();

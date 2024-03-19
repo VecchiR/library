@@ -12,17 +12,32 @@
 <body>
 
 
-  <dialog class="dialog-addbook"> 
+  <dialog class="dialog-addbook">
     <form class="dialog-form" method="dialog">
-      <p class="dialog-title">Add book to library:</p>
-      <label for="book-title">Title:</label><br>
-      <input type="text" id="book-title" name="book-title" required><br>
-      <label for="book-author">Author:</label><br>
-      <input type="text" id="book-author" name="book-author"><br>
-      <label for="book-pages">Number of pages:</label><br>
-      <input type="number" id="book-pages" name="book-pages"><br>
-      <input type="checkbox" id="book-finished" name="book-finished" value="book-finished">
-      <label for="book-finished">Finished reading</label><br>
+      <span class="dialog-title">Add book to library:</span>
+
+      <label for="book-title">
+        <span class="form-field-span">Title:</span>
+        <input type="text" id="book-title" name="book-title" required>
+        <span class="error" aria-live="polite"></span>
+      </label>
+
+
+      <label for="book-author">
+        <span class="form-field-span">Author:</span>
+        <input type="text" id="book-author" name="book-author">
+      </label>
+
+      <label for="book-pages">
+        <span class="form-field-span">Number of pages:</span>
+        <input type="number" id="book-pages" name="book-pages">
+      </label>
+
+      <label for="book-finished">
+        <span class="form-field-span">Finished reading</span>
+        <input type="checkbox" id="book-finished" name="book-finished" value="book-finished">
+      </label>
+
       <button class="book-submit" type="submit">Submit</button>
       <button class="dialog-close" type="button">Close</button>
     </form>
