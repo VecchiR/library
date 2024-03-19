@@ -27,11 +27,11 @@ addBookButton.addEventListener('click', () => {
 const booksTable = document.querySelector('.books-table');
 booksTable.addEventListener("click", (e) => {
     if (e.target.classList.contains("delete-button")) {
-        deleteBookFromLibrary(e.target.parentNode);
+        deleteBookFromLibrary(e.target.parentNode.parentNode);
     }
 
     if (e.target.classList.contains("readCheck")) {
-        changeReadStatus(e.target.parentNode);
+        changeReadStatus(e.target.parentNode.parentNode);
     }
 
     else {
@@ -86,28 +86,38 @@ function addBookToLibrary(book) {
     hiddenTag.setAttribute('type', 'hidden');
     hiddenTag.setAttribute('value', book.id);
     newRow.appendChild(hiddenTag);
-    for (let x = 0; x < 3; x++) {
+
+    for (let x = 0; x < 5; x++) {
         let newData = document.createElement("td");
-        let newText = document.createTextNode(Object.values(book)[x]);
-        newData.appendChild(newText);
+
+        switch (true) {
+            case x < 3:
+                let newText = document.createTextNode(Object.values(book)[x]);
+                newData.appendChild(newText);
+                break;
+
+            case x === 3:
+                let newCheckbox = document.createElement("input");
+                newCheckbox.setAttribute("type", "checkbox");
+                newCheckbox.setAttribute("class", "readCheck");
+
+                if (Object.values(book)[3] === true) {
+                    newCheckbox.checked = true;
+                }
+                newData.appendChild(newCheckbox);
+                break;
+
+            case x === 4:
+                let newDeleteBtn = document.createElement("button");
+                newDeleteBtn.setAttribute("class", "delete-button");
+                let deleteBtnText = document.createTextNode("Delete");
+                newDeleteBtn.appendChild(deleteBtnText);
+                newData.appendChild(newDeleteBtn);
+                break;
+        }
+
         newRow.appendChild(newData);
     }
-
-    let newCheckbox = document.createElement("input");
-    newCheckbox.setAttribute("type", "checkbox");
-    newCheckbox.setAttribute("class", "readCheck");
-
-    if (Object.values(book)[3] === true) {
-        newCheckbox.checked = true;
-    }
-    newRow.appendChild(newCheckbox);
-
-
-    let newDeleteBtn = document.createElement("button");
-    newDeleteBtn.setAttribute("class", "delete-button");
-    let deleteBtnText = document.createTextNode("Delete");
-    newDeleteBtn.appendChild(deleteBtnText);
-    newRow.appendChild(newDeleteBtn);
     booksTable.appendChild(newRow);
 }
 
