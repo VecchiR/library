@@ -18,9 +18,12 @@ const bookTitleForm = document.querySelector('#book-title');
 
 const addBookForm = document.querySelector(".dialog-form");
 const dialog = document.querySelector(".dialog-addbook");
+
+
 const addBookButton = document.querySelector('.add-book');
 addBookButton.addEventListener('click', () => {
     addBookForm.reset();
+    resetTitleError();
     dialog.showModal();
 });
 
@@ -65,8 +68,7 @@ function submitBook(event) {
         return;
     }
     else {
-        bookTitleError.className = 'error';
-        bookTitleError.innerHTML = '';
+        resetTitleError();
     }
 
     let author = document.querySelector("#book-author").value;
@@ -108,9 +110,9 @@ function addBookToLibrary(book) {
                 break;
 
             case x === 4:
-                let newDeleteBtn = document.createElement("button");
+                let newDeleteBtn = document.createElement("a");
                 newDeleteBtn.setAttribute("class", "delete-button");
-                let deleteBtnText = document.createTextNode("Delete");
+                let deleteBtnText = document.createTextNode("remove");
                 newDeleteBtn.appendChild(deleteBtnText);
                 newData.appendChild(newDeleteBtn);
                 break;
@@ -122,10 +124,16 @@ function addBookToLibrary(book) {
 }
 
 function examplesOnLoad() {
-    const meditations = new Book('Meditations', 'Marcus Aurelius', 208, true, generateId());
+    const meditations = new Book('Meditations', 'Marcus Aurelius', 208, false, generateId());
     addBookToLibrary(meditations);
-    const fahrenheit = new Book('Fahrenheit 451', 'Ray Bradbury', 159, false, generateId());
+    const fahrenheit = new Book('Fahrenheit 451', 'Ray Bradbury', 159, true, generateId());
     addBookToLibrary(fahrenheit);
+    const bravenew = new Book('Brave New World', 'Aldous Huxley', 288, true, generateId());
+    addBookToLibrary(bravenew);
+    const kurt = new Book('Slaughterhouse-Five', 'Kurt Vonnegut', 215, true, generateId());
+    addBookToLibrary(kurt);
+    const meaning = new Book("Man's Search for Meaning", 'Viktor E. Frankl', 184, false, generateId());
+    addBookToLibrary(meaning);
 }
 
 function updateReadStatus(x) {
@@ -158,5 +166,9 @@ function changeReadStatus(row) {
     myLibrary[bookIndex].toggleRead();
 }
 
+function resetTitleError() {
+    bookTitleError.className = 'error';
+    bookTitleError.innerHTML = '';
+}
 
 examplesOnLoad();
