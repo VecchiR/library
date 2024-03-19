@@ -59,7 +59,7 @@ function submitBook(event) {
     event.preventDefault();
     let title = bookTitleForm.value;
 
-    if(bookTitleForm.validity.valueMissing){
+    if (bookTitleForm.validity.valueMissing) {
         bookTitleError.className = 'error active';
         bookTitleError.textContent = "Please enter the book's title!";
         return;
@@ -68,7 +68,7 @@ function submitBook(event) {
         bookTitleError.className = 'error';
         bookTitleError.innerHTML = '';
     }
-    
+
     let author = document.querySelector("#book-author").value;
     let pages = document.querySelector("#book-pages").value;
     let read = document.querySelector("#book-finished").checked;
@@ -118,16 +118,6 @@ function examplesOnLoad() {
     addBookToLibrary(fahrenheit);
 }
 
-
-
-
-
-
-
-function test() {
-    alert('DELETED');
-}
-
 function updateReadStatus(x) {
     alert(this);
     alert(x);
@@ -135,17 +125,10 @@ function updateReadStatus(x) {
     alert(rowIndex);
 }
 
-function getBookIndex(title) {
-
-}
-
-
 function generateId() {
-
     return Math.random().toString(36).substring(2) +
         (new Date()).getTime().toString(36);
 }
-
 
 function deleteBookFromLibrary(row) {
     let bookId = row.querySelector('input').value;
